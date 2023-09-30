@@ -1,19 +1,8 @@
 #!/bin/zsh
 
-# cat /etc/os-release
-# PRETTY_NAME="Ubuntu 22.04.3 LTS"
-# NAME="Ubuntu"
-# VERSION_ID="22.04"
-# VERSION="22.04.3 LTS (Jammy Jellyfish)"
-# VERSION_CODENAME=jammy
-# ID=ubuntu
-# ID_LIKE=debian
-# HOME_URL="https://www.ubuntu.com/"
-# SUPPORT_URL="https://help.ubuntu.com/"
-# BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-# PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-# UBUNTU_CODENAME=jammy
+# This scipt installs and configures LLVM and related tools.
 
+# System-wide variables
 llvm_id="sysprog"
 
 jobs_compiler=6
@@ -34,6 +23,7 @@ projects=""`
     `"clang;"`
     `""
 
+# Update the system and install required packages.
 apt update
 apt upgrade -y
 apt install -y \
@@ -45,19 +35,20 @@ apt install -y \
     graphviz \
     lld \
     ninja-build \
-    tclsh \
+    tclsh
 
+# Create necessary directories.
 mkdir -p -v \
     $clangd_config \
     $llvm_build \
     $llvm_install \
     $llvm_module
 
-# lab1:
+# Lab 1: Clone the LLVM repository and use Git worktree feature.
 git clone https://github.com/llvm/llvm-project.git $llvm_src_main
 git -C $llvm_src_main worktree add -b sysprog $llvm_src llvmorg-16.0.6
 
-# lab2:
+# Lab 2: Build and install LLVM
 pushd $llvm_build
 cmake \
     -DBUILD_SHARED_LIBS=ON \
@@ -86,7 +77,7 @@ ninja -j $jobs_compiler
 ninja install
 popd
 
-# lab3:
+# Lab3: Update user's environment.
 cat >> ~/.zshrc << EOF
 
 # Added for LLVM labs:
@@ -98,6 +89,7 @@ export __toolchain="\$dev_dir/toolchains"
 
 EOF
 
+# Create a module file for LLVM.
 cat > $llvm_module/sysprog << EOF
 #%Module
 
@@ -121,5 +113,6 @@ prepend-path	MANPATH			\$prefix/share/man
 prepend-path	PATH			\$prefix/bin
 EOF
 
+# Set correct ownership.
 chown -R seigtm:seigtm "$dev_dir"
 
