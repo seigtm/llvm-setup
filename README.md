@@ -27,7 +27,7 @@ This script automates the setup of a development environment for the **"GNU/Linu
 5. Run the script:
 
    ```bash
-   ./llvm.sh
+   sudo ./llvm.sh
    ```
 
 ## What It Does
