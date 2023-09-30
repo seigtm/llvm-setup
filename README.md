@@ -21,13 +21,13 @@ This script automates the setup of a development environment for the **"GNU/Linu
 4. Make the script executable:
 
    ```bash
-   chmod +x setup.sh
+   chmod +x llvm.sh
    ```
 
 5. Run the script:
 
    ```bash
-   ./setup.sh
+   ./llvm.sh
    ```
 
 ## What It Does
