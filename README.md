@@ -13,7 +13,6 @@ This script automates the setup of a development environment for the **"GNU/Linu
 2. Change into the cloned directory:
 
    ```bash
-   Copy code
    cd llvm-setup
    ```
 
