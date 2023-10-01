@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 # This scipt installs and configures LLVM and related tools.
 
 # System-wide variables
@@ -13,7 +11,7 @@ dev_dir="$home_dir/develop"
 
 llvm_build="$dev_dir/build/llvm-project/$llvm_id"
 llvm_ccache="$dev_dir/ccache/llvm-project/$llvm_id"
-llvm_install="$dev_dir/toolchains/install/llvm-project/$llvm_id"
+llvm_install="$dev_dir/toolchains/llvm-project/$llvm_id"
 llvm_module="$dev_dir/module/llvm-project"
 llvm_src="$dev_dir/src/llvm-project/$llvm_id"
 llvm_src_main="$dev_dir/src/llvm-project/main"
@@ -78,7 +76,7 @@ ninja install
 popd
 
 # Lab3: Update user's environment.
-cat >> ~/.zshrc << EOF
+cat >> "$home_dir/.zshrc" << EOF
 
 # Added for LLVM labs:
 export dev_dir=$dev_dir
@@ -111,6 +109,7 @@ prepend-path	LIBRARY_PATH		\$prefix/lib
 prepend-path	LIBRARY_PATH		\$prefix/libexec
 prepend-path	MANPATH			\$prefix/share/man
 prepend-path	PATH			\$prefix/bin
+
 EOF
 
 # Set correct ownership.
